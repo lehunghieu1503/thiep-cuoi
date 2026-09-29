@@ -88,7 +88,9 @@ Ngoài album, ảnh có thể đặt ở 7 chỗ, chỗ nào để trống thì 
 6. **Album** (`photos` + `albumLayout`): 4 kiểu bố cục, ảnh có thể kèm chú thích.
 7. **Cuối thiệp** (`footerPhoto`): ảnh nền phía sau lời cảm ơn.
 
-Mọi ảnh đều bấm vào để xem lớn. Trong album có thể vuốt hoặc bấm mũi tên để chuyển ảnh.
+Mọi ảnh đều bấm vào để xem lớn. Trong album có thể vuốt, bấm mũi tên hoặc bấm ảnh nhỏ bên dưới để chuyển ảnh.
+
+**Album động:** ảnh được vén ra lần lượt khi cuộn tới và trôi nhẹ trong khung; ảnh lớn nhất tự zoom chậm. Rê chuột vào ảnh thì hiện khung vàng, vệt sáng, kính lúp và các ảnh khác tối đi. Kiểu ghép mảng tự nới rộng vài ảnh cuối để không còn ô trống. Nút **Trình chiếu album** mở chế độ xem toàn màn hình: ảnh chuyển mờ dần, trôi và zoom chậm, có thanh tiến trình, tự bật nhạc nền; dùng phím ← → để chuyển, Space để dừng, Esc để thoát.
 
 **Tự động:** thứ trong tuần và ngày âm lịch (có can chi, tháng nhuận) được tính từ ngày dương, không cần điền tay.
 
