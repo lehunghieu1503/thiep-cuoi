@@ -27,14 +27,14 @@ thiep-cuoi/
 
 ```bash
 # 1. Tạo thư mục mới từ mẫu (tên chữ thường không dấu, nối bằng gạch ngang)
-node build.js --new toan-linh
+node build.js --new a-b
 
-# 2. Sửa couples/toan-linh/data.json, bỏ ảnh vào couples/toan-linh/photos/
+# 2. Sửa couples/a-b/data.json, bỏ ảnh vào couples/a-b/photos/
 
 # 3. Tạo thiệp
-node build.js toan-linh
+node build.js a-b
 
-# 4. Mở dist/toan-linh/index.html bằng trình duyệt để xem
+# 4. Mở dist/a-b/index.html bằng trình duyệt để xem
 ```
 
 Build lại tất cả cặp một lúc: `node build.js`
@@ -129,7 +129,7 @@ Link có dạng `https://thiep-cuoi-grb.pages.dev/<ten-cap-doi>/`. Thiệp đư�
 ```bash
 npx wrangler login                      # chỉ lần đầu: đăng nhập Cloudflare
 scripts/deploy-cloudflare.sh            # build tất cả rồi đăng
-scripts/deploy-cloudflare.sh toan-linh  # chỉ build lại một cặp rồi đăng
+scripts/deploy-cloudflare.sh a-b  # chỉ build lại một cặp rồi đăng
 ```
 
 Mỗi lần đăng sẽ tải lên toàn bộ thư mục `dist/`. Thiệp của cặp nào đã build trước đó vẫn còn trên link, trừ khi bạn xoá thư mục của cặp đó trong `dist/`.

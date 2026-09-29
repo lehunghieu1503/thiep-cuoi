@@ -18,13 +18,13 @@
   "message": "Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng tôi trong ngày vui của hai con.",
   "families": {
     "groom": {
-      "father": "Ông Trần Văn Hùng",
-      "mother": "Bà Lê Thị Mai",
+      "father": "Ông Nguyễn Văn A",
+      "mother": "Bà Trần Thị A",
       "address": "Phường Hàm Rồng, Thanh Hóa"
     },
     "bride": {
-      "father": "Ông Nguyễn Đức Thắng",
-      "mother": "Bà Phạm Thị Lan",
+      "father": "Ông Lê Văn B",
+      "mother": "Bà Phạm Thị B",
       "address": "Phường Hạc Thành, Thanh Hóa"
     }
   },

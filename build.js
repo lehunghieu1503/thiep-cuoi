@@ -3,7 +3,7 @@
  * Tạo thiệp cưới từ template.html + couples/<ten-cap-doi>/data.json
  *
  *   node build.js                 build tất cả cặp đôi trong couples/
- *   node build.js khoi-ha         build một (hoặc vài) cặp đôi
+ *   node build.js a-b         build một (hoặc vài) cặp đôi
  *   node build.js --new ten-moi   tạo thư mục cặp đôi mới từ mẫu couples/mau
  *
  * Kết quả: dist/<ten-cap-doi>/index.html — một file duy nhất, ảnh/nhạc/QR đã nhúng sẵn.
@@ -120,7 +120,7 @@ function build(slug) {
 }
 
 function scaffold(slug) {
-  if (!/^[a-z0-9-]+$/.test(slug)) throw new BuildError("tên thư mục chỉ dùng chữ thường không dấu, số và dấu gạch ngang, ví dụ: toan-linh");
+  if (!/^[a-z0-9-]+$/.test(slug)) throw new BuildError("tên thư mục chỉ dùng chữ thường không dấu, số và dấu gạch ngang, ví dụ: a-b");
   const dir = path.join(COUPLES, slug);
   if (fs.existsSync(dir)) throw new BuildError(`thư mục couples/${slug} đã tồn tại`);
   fs.mkdirSync(path.join(dir, "photos"), { recursive: true });
@@ -161,7 +161,7 @@ function main() {
   const args = process.argv.slice(2);
   try {
     if (args[0] === "--new") {
-      if (!args[1]) throw new BuildError("cần tên thư mục, ví dụ: node build.js --new toan-linh");
+      if (!args[1]) throw new BuildError("cần tên thư mục, ví dụ: node build.js --new a-b");
       return scaffold(args[1]);
     }
     const slugs = args.length ? args : fs.readdirSync(COUPLES).filter((f) => fs.existsSync(path.join(COUPLES, f, "data.json")));
