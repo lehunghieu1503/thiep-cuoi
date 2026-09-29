@@ -59,6 +59,7 @@ Nếu `data.json` điền sai (thiếu tên, sai định dạng ngày, tên ản
 | `story[]` | | `date`, `title`, `text`, `photo` (ảnh kỷ niệm kiểu ảnh lấy liền), `caption` (dòng chữ viết tay dưới ảnh) |
 | `interludes[]` | | Dải ảnh tràn viền xen giữa các phần: `photo`, `text` (câu trích), `cite` (tên người nói), `after` (đặt sau phần nào, xem bên dưới) |
 | `albumLayout` | | Kiểu album: `mosaic` (ghép mảng, mặc định), `grid` (lưới đều), `masonry` (xếp gạch, giữ tỉ lệ ảnh), `carousel` (trượt ngang) |
+| `albumStage` | | `true` (mặc định): màn chiếu tự động phía trên lưới ảnh. `false` để chỉ giữ lưới ảnh tĩnh |
 | `photos[]` | | Mỗi ảnh là đường dẫn `"photos/1.jpg"` hoặc `{ "src": "...", "caption": "...", "size": "big" \| "wide" \| "tall" }`. `size` chỉ dùng cho `mosaic` |
 | `rsvp.deadline` | | Hạn xác nhận, ví dụ `"10/12/2026"` |
 | `rsvp.endpoint` | | Link Apps Script (`https://script.google.com/macros/s/.../exec`) để lưu xác nhận vào Google Sheet. `"demo"`: form chạy thử, không lưu |
@@ -90,7 +91,7 @@ Ngoài album, ảnh có thể đặt ở 7 chỗ, chỗ nào để trống thì 
 
 Mọi ảnh đều bấm vào để xem lớn. Trong album có thể vuốt, bấm mũi tên hoặc bấm ảnh nhỏ bên dưới để chuyển ảnh.
 
-**Album động:** ảnh được vén ra lần lượt khi cuộn tới và trôi nhẹ trong khung; ảnh lớn nhất tự zoom chậm. Rê chuột vào ảnh thì hiện khung vàng, vệt sáng, kính lúp và các ảnh khác tối đi. Kiểu ghép mảng tự nới rộng vài ảnh cuối để không còn ô trống. Nút **Trình chiếu album** mở chế độ xem toàn màn hình: ảnh chuyển mờ dần, trôi và zoom chậm, có thanh tiến trình, tự bật nhạc nền; dùng phím ← → để chuyển, Space để dừng, Esc để thoát.
+**Album hai lớp:** phía trên là **màn chiếu ngay trong trang**: tự chiếu khi khách cuộn tới (ảnh chuyển mờ dần, trôi và zoom chậm, ảnh dọc không bị cắt), tự dừng khi cuộn qua; có chú thích, số thứ tự, mũi tên, nút tạm dừng và nút xem toàn màn hình. Phía dưới là **lưới ảnh tĩnh** luôn hiện sẵn; ảnh đang chiếu có viền vàng, bấm ảnh nào thì xem lớn và màn chiếu nhảy tới ảnh đó. Kiểu ghép mảng tự lấp kín hàng cuối. Tắt màn chiếu bằng `albumStage: false`.
 
 **Tự động:** thứ trong tuần và ngày âm lịch (có can chi, tháng nhuận) được tính từ ngày dương, không cần điền tay.
 

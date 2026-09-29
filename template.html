@@ -665,21 +665,6 @@ section.band .countdown span, section.band .married { color: var(--gold-soft); }
 .btn:hover::after { left: 130%; }
 
 /* ---- Album động ---- */
-/* Ảnh được "vén" ra khi cuộn tới, ảnh bên trong thu nhỏ dần về khung */
-html.fx .album figure.pre { clip-path: inset(0 0 100% 0); }
-html.fx .album figure.pre.from-left { clip-path: inset(0 100% 0 0); }
-html.fx .album figure.pre.from-right { clip-path: inset(0 0 0 100%); }
-html.fx .album figure.show { clip-path: inset(0 0 0 0); transition: clip-path 1.25s cubic-bezier(.77, 0, .18, 1) var(--d, 0s); }
-html.fx .album figure.show img { animation: imgIn 1.9s cubic-bezier(.2, .8, .2, 1) var(--d, 0s) backwards; }
-@keyframes imgIn { from { transform: translate3d(0, var(--par), 0) scale(1.45); filter: brightness(1.35) saturate(.5); } }
-/* Ảnh lớn tự trôi và zoom chậm */
-html.fx .album.mosaic figure.big.show img {
-  animation: imgIn 1.9s cubic-bezier(.2, .8, .2, 1) var(--d, 0s) backwards, drift 18s ease-in-out calc(var(--d, 0s) + 1.9s) infinite alternate;
-}
-@keyframes drift {
-  from { transform: translate3d(0, var(--par), 0) scale(1.12); }
-  to { transform: translate3d(-3%, calc(var(--par) - 2%), 0) scale(1.24); }
-}
 /* Rê chuột: khung vàng, vệt sáng, kính lúp, các ảnh khác tối đi */
 .album button::before {
   content: ""; position: absolute; inset: 10px; z-index: 2; pointer-events: none;
@@ -705,8 +690,40 @@ html.fx .album.mosaic figure.big.show img {
 .album.grid figcaption, .album.mosaic figcaption { z-index: 3; transform: translateY(4px); transition: transform .5s ease, padding .5s ease; }
 .album.grid figure:hover figcaption, .album.mosaic figure:hover figcaption { transform: none; padding-bottom: 12px; }
 @media (hover: hover) { .album:hover figure:not(:hover) img { filter: brightness(.7) saturate(.8); } }
-.show-btn { display: inline-flex; margin-top: 26px; padding: 14px 22px; font-size: 13px; }
-.show-btn svg { width: 16px; height: 16px; }
+/* Ảnh đang được chiếu trên màn chiếu: viền vàng trong lưới */
+.album figure.now button::before { opacity: 1; transform: none; border-width: 2px; }
+
+/* Màn chiếu ngay trong trang: tự chiếu khi cuộn tới, dừng khi cuộn qua */
+.stage {
+  position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 78svh; margin-top: 26px;
+  overflow: hidden; background: var(--ink); color: var(--on-accent);
+  box-shadow: 0 30px 60px -34px color-mix(in srgb, var(--accent-deep) 70%, transparent);
+}
+@media (max-width: 700px) { .stage { aspect-ratio: 4 / 5; } }
+.stage-slides { position: absolute; inset: 0; cursor: zoom-in; }
+.stage.paused .ss-slide .fg, .stage.paused .ss-slide .bg, .stage.paused .ss-seg.active i { animation-play-state: paused; }
+.stage .ss-progress { top: 14px; right: 16px; }
+.stage-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 45%, transparent), transparent 20%, transparent 62%, color-mix(in srgb, var(--ink) 78%, transparent)); }
+.stage-info { position: absolute; left: 20px; right: 120px; bottom: 18px; display: grid; gap: 2px; text-align: left; pointer-events: none; }
+.stage-count { font-size: 12px; letter-spacing: .24em; color: var(--gold-soft); font-variant-numeric: tabular-nums; }
+.stage-cap { font-family: var(--f-display); font-style: italic; font-size: clamp(18px, 2.4vw, 26px); color: var(--on-accent); min-height: 1.3em; }
+.stage-nav, .stage-tools button {
+  display: grid; place-items: center; cursor: pointer; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--gold-soft) 60%, transparent); color: var(--gold-soft);
+  background: color-mix(in srgb, var(--ink) 40%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: opacity .3s, background .3s;
+}
+.stage-nav { position: absolute; top: 50%; width: 46px; height: 46px; margin-top: -23px; }
+.stage-nav.prev { left: 14px; }
+.stage-nav.next { right: 14px; }
+.stage-nav svg, .stage-tools svg { width: 20px; height: 20px; }
+.stage-tools { position: absolute; right: 16px; bottom: 16px; display: flex; gap: 8px; }
+.stage-tools button { width: 44px; height: 44px; }
+.stage-nav:hover, .stage-tools button:hover { background: color-mix(in srgb, var(--accent) 70%, transparent); }
+.stage .ic-play { display: none; }
+.stage.paused .ic-play { display: block; }
+.stage.paused .ic-pause { display: none; }
+@media (hover: hover) { .stage-nav { opacity: 0; } .stage:hover .stage-nav, .stage-nav:focus-visible { opacity: 1; } }
 
 /* Khung xem ảnh lớn: nền mờ kính, ảnh trượt khi chuyển, dải ảnh nhỏ */
 .lightbox { opacity: 0; transition: opacity .35s ease; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); background: color-mix(in srgb, var(--ink) 88%, transparent); }
@@ -895,6 +912,18 @@ html.fx .album.mosaic figure.big.show img {
     <section>
       <p class="eyebrow">Khoảnh khắc</p>
       <h2>Album ảnh cưới</h2>
+      <div class="stage" id="stage" hidden>
+        <div class="stage-slides" id="stage-slides" role="button" tabindex="0" aria-label="Xem ảnh lớn"></div>
+        <div class="stage-shade"></div>
+        <div class="ss-progress" id="stage-progress"></div>
+        <div class="stage-info"><span class="stage-count" id="stage-count"></span><p class="stage-cap" id="stage-cap"></p></div>
+        <button class="stage-nav prev" type="button" id="stage-prev" aria-label="Ảnh trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+        <button class="stage-nav next" type="button" id="stage-next" aria-label="Ảnh sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+        <div class="stage-tools">
+          <button type="button" id="stage-play" aria-label="Tạm dừng"><svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3v14H7zM14 5h3v14h-3z"></path></svg><svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></button>
+          <button type="button" id="stage-full" aria-label="Xem toàn màn hình"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"></path></svg></button>
+        </div>
+      </div>
       <div class="album-wrap">
         <div class="album" id="album"></div>
       </div>
@@ -903,10 +932,6 @@ html.fx .album.mosaic figure.big.show img {
         <span id="car-count">1 / 1</span>
         <button type="button" data-dir="1" aria-label="Ảnh sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
       </div>
-      <button class="btn solid show-btn" id="show-btn" type="button" hidden>
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
-        Trình chiếu album
-      </button>
     </section>
   </div>
 
@@ -1254,7 +1279,12 @@ window.WEDDING = /*@data*/null;
     setTimeout(() => { if (current < 0) lb.hidden = true; }, 350);
   };
   const step = (d) => { if (current >= 0 && gallery.length > 1) openPhoto(gallery, current + d, d); };
-  album.addEventListener("click", (e) => { const b = e.target.closest("button[data-i]"); if (b) openPhoto(photos, +b.dataset.i); });
+  album.addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-i]");
+    if (!b) return;
+    openPhoto(photos, +b.dataset.i);
+    stageGo?.(+b.dataset.i);
+  });
   document.addEventListener("click", (e) => {
     const z = e.target.closest("[data-zoom]");
     if (z) openPhoto([{ src: z.dataset.zoom, caption: z.dataset.caption }], 0);
@@ -1285,30 +1315,36 @@ window.WEDDING = /*@data*/null;
   const SS_DURATION = 5000;
   const ss = $("slideshow");
   let ssIndex = 0, ssTimer = 0, ssPlaying = true, ssBuilt = false;
+  // Mỗi ảnh trôi và zoom theo một hướng khác nhau; nền là chính ảnh đó làm mờ nên ảnh dọc không bị cắt
+  const slidesHTML = () => photos.map((p, k) => {
+    const kx = ["-3%", "3%", "2%", "-2%"][k % 4], ky = ["-2%", "2%", "-3%", "3%"][k % 4];
+    return `<div class="ss-slide" style="--kx: ${kx}; --ky: ${ky}; --ks: ${k % 2 ? 1.1 : 1.16}; --dur: ${SS_DURATION + 1400}ms">
+      <img class="bg" src="${esc(p.src)}" alt=""><img class="fg" src="${esc(p.src)}" alt="${esc(p.caption || "")}"></div>`;
+  }).join("");
+  const segsHTML = () => photos.map(() => `<span class="ss-seg" style="--dur: ${SS_DURATION}ms"><i></i></span>`).join("");
+  // Bật slide thứ i và chạy lại thanh tiến trình tương ứng
+  function activate(slidesEl, progressEl, i) {
+    [...slidesEl.children].forEach((el, k) => {
+      const on = k === i;
+      if (on && el.classList.contains("on")) { el.classList.remove("on"); void el.offsetWidth; }
+      el.classList.toggle("on", on);
+    });
+    [...progressEl.children].forEach((seg, k) => {
+      seg.classList.remove("active");
+      seg.classList.toggle("done", k < i);
+      if (k === i) { void seg.offsetWidth; seg.classList.add("active"); }
+    });
+  }
   function ssBuild() {
     if (ssBuilt) return;
     ssBuilt = true;
-    $("ss-stage").innerHTML = photos.map((p, k) => {
-      // Mỗi ảnh trôi và zoom theo một hướng khác nhau
-      const kx = ["-3%", "3%", "2%", "-2%"][k % 4], ky = ["-2%", "2%", "-3%", "3%"][k % 4];
-      return `<div class="ss-slide" style="--kx: ${kx}; --ky: ${ky}; --ks: ${k % 2 ? 1.1 : 1.16}; --dur: ${SS_DURATION + 1400}ms">
-        <img class="bg" src="${esc(p.src)}" alt=""><img class="fg" src="${esc(p.src)}" alt="${esc(p.caption || "")}"></div>`;
-    }).join("");
-    $("ss-progress").innerHTML = photos.map(() => `<span class="ss-seg" style="--dur: ${SS_DURATION}ms"><i></i></span>`).join("");
+    $("ss-stage").innerHTML = slidesHTML();
+    $("ss-progress").innerHTML = segsHTML();
     $("ss-names").textContent = `${W.groom.name} & ${W.bride.name}`;
   }
   function ssShow(i) {
     ssIndex = (i + photos.length) % photos.length;
-    [...$("ss-stage").children].forEach((el, k) => {
-      const on = k === ssIndex;
-      if (on && el.classList.contains("on")) { el.classList.remove("on"); void el.offsetWidth; }
-      el.classList.toggle("on", on);
-    });
-    [...$("ss-progress").children].forEach((seg, k) => {
-      seg.classList.remove("active");
-      seg.classList.toggle("done", k < ssIndex);
-      if (k === ssIndex) { void seg.offsetWidth; seg.classList.add("active"); }
-    });
+    activate($("ss-stage"), $("ss-progress"), ssIndex);
     $("ss-cap").textContent = photos[ssIndex].caption || "";
     clearTimeout(ssTimer);
     if (ssPlaying) ssTimer = setTimeout(() => ssShow(ssIndex + 1), SS_DURATION);
@@ -1319,22 +1355,81 @@ window.WEDDING = /*@data*/null;
     $("ss-play").setAttribute("aria-label", on ? "Tạm dừng" : "Phát tiếp");
     if (on) ssShow(ssIndex); else clearTimeout(ssTimer);
   }
-  function ssOpen() {
+  function ssOpen(start = 0) {
     ssBuild();
+    stagePause?.();
     ss.hidden = false;
     root.classList.add("locked");
     if (player && !player.playing) startMusic();
+    ssIndex = start;
     ssSetPlaying(true);
-    ssShow(0);
   }
   function ssClose() {
     clearTimeout(ssTimer);
     ss.hidden = true;
     root.classList.remove("locked");
+    stageGo?.(ssIndex);
   }
-  if (photos.length > 1) {
-    $("show-btn").hidden = false;
-    $("show-btn").addEventListener("click", ssOpen);
+
+  // ---- Màn chiếu trong trang: tự chiếu khi khách cuộn tới, dừng khi cuộn qua hoặc chuyển tab
+  var stageGo, stagePause;
+  const stage = $("stage");
+  if (photos.length > 1 && W.albumStage !== false) {
+    const slidesEl = $("stage-slides"), progressEl = $("stage-progress");
+    const motionOK = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let stIndex = 0, stTimer = 0, stPlaying = motionOK, stVisible = false;
+    slidesEl.innerHTML = slidesHTML();
+    progressEl.innerHTML = segsHTML();
+    stage.hidden = false;
+    const schedule = () => {
+      clearTimeout(stTimer);
+      const running = stPlaying && stVisible && !document.hidden;
+      stage.classList.toggle("paused", !running);
+      if (running) stTimer = setTimeout(() => show(stIndex + 1), SS_DURATION);
+    };
+    function show(i) {
+      stIndex = (i + photos.length) % photos.length;
+      activate(slidesEl, progressEl, stIndex);
+      $("stage-count").textContent = `${pad(stIndex + 1)} / ${pad(photos.length)}`;
+      $("stage-cap").textContent = photos[stIndex].caption || "";
+      [...album.children].forEach((f, k) => f.classList.toggle("now", k === stIndex));
+      schedule();
+    }
+    stageGo = (i) => show(i);
+    stagePause = () => { stVisible = false; schedule(); };
+    const setPlaying = (on) => {
+      stPlaying = on;
+      $("stage-play").setAttribute("aria-label", on ? "Tạm dừng" : "Phát tiếp");
+      schedule();
+    };
+    $("stage-prev").addEventListener("click", () => show(stIndex - 1));
+    $("stage-next").addEventListener("click", () => show(stIndex + 1));
+    $("stage-play").addEventListener("click", () => setPlaying(!stPlaying));
+    $("stage-full").addEventListener("click", () => ssOpen(stIndex));
+    slidesEl.addEventListener("click", () => openPhoto(photos, stIndex));
+    slidesEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPhoto(photos, stIndex); }
+      if (e.key === "ArrowRight") show(stIndex + 1);
+      if (e.key === "ArrowLeft") show(stIndex - 1);
+    });
+    let stTouch = null;
+    stage.addEventListener("touchstart", (e) => { stTouch = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (stTouch === null) return;
+      const dx = e.changedTouches[0].clientX - stTouch;
+      stTouch = null;
+      if (Math.abs(dx) > 40) show(stIndex + (dx < 0 ? 1 : -1));
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((entries) => {
+        stVisible = entries[0].isIntersecting && ss.hidden;
+        schedule();
+      }, { threshold: 0.35 }).observe(stage);
+    } else {
+      stVisible = true;
+    }
+    document.addEventListener("visibilitychange", schedule);
+    show(0);
   }
   $("ss-close").addEventListener("click", ssClose);
   $("ss-prev").addEventListener("click", () => ssShow(ssIndex - 1));
@@ -1662,10 +1757,10 @@ window.WEDDING = /*@data*/null;
 
   function setupReveal() {
     if (!("IntersectionObserver" in window)) { root.classList.remove("fx"); return; }
-    const groups = ".events, .story, .album-wrap, .gifts, .countdown";
+    const groups = ".events, .story, .album-wrap, .album, .gifts, .countdown";
     const els = [
       ...document.querySelectorAll(`.card section > *:not(${groups})`),
-      ...document.querySelectorAll(".event, .story li, .gift, .countdown div, .interlude blockquote"),
+      ...document.querySelectorAll(".event, .story li, .album figure, .gift, .countdown div, .interlude blockquote"),
     ];
     const io = new IntersectionObserver((entries) => entries.forEach((en) => {
       if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
@@ -1677,19 +1772,6 @@ window.WEDDING = /*@data*/null;
       }
       el.classList.add("rv");
       io.observe(el);
-    });
-    // Album: mỗi ảnh được vén ra theo hướng xen kẽ, lệch nhịp nhau
-    const albumIo = new IntersectionObserver((entries) => entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      en.target.classList.remove("pre", "from-left", "from-right");
-      en.target.classList.add("show");
-      albumIo.unobserve(en.target);
-    }), { threshold: 0.15 });
-    [...$("album").children].forEach((f, i) => {
-      f.style.setProperty("--d", `${(i % 4) * 0.13}s`);
-      f.classList.add("pre");
-      if (i % 3) f.classList.add(i % 3 === 1 ? "from-left" : "from-right");
-      albumIo.observe(f);
     });
     // Tới cuối thiệp: bắn pháo hoa một lần
     const endIo = new IntersectionObserver((entries) => {
@@ -1917,15 +1999,6 @@ window.WEDDING = /*@data*/null;
     const r = storyEl.getBoundingClientRect(), mark = innerHeight * 0.62;
     storyEl.style.setProperty("--p", String(Math.max(0, Math.min(1, (mark - r.top) / Math.max(1, r.height)))));
     storyEl.querySelectorAll("li").forEach((li) => li.classList.toggle("lit", li.getBoundingClientRect().top < mark));
-    // Ảnh trong album trôi nhẹ bên trong khung
-    if (layout !== "carousel") {
-      album.querySelectorAll("figure").forEach((f) => {
-        const fr = f.getBoundingClientRect();
-        if (fr.bottom < 0 || fr.top > innerHeight) return;
-        const par = Math.max(-1, Math.min(1, (fr.top + fr.height / 2 - innerHeight / 2) / innerHeight)) * fr.height * -0.05;
-        f.style.setProperty("--par", `${par.toFixed(1)}px`);
-      });
-    }
   }
   if (reduced) {
     storyEl.style.setProperty("--p", "1");
