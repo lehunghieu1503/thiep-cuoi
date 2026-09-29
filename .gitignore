@@ -1,0 +1,11 @@
+# Thiệp đã build: tạo lại bằng `node build.js`
+dist/
+
+# Nhạc có bản quyền: giữ trên máy, không đưa lên repo
+couples/*/nhac/
+
+# Dữ liệu cặp đôi thật (tên, địa chỉ, số tài khoản, ảnh).
+# Repo công khai: giữ nguyên 2 dòng dưới để chỉ đưa cặp mẫu lên.
+# Repo riêng tư: xoá 2 dòng dưới nếu muốn sao lưu cả dữ liệu thật.
+couples/*
+!couples/mau/

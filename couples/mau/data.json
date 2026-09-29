@@ -1,0 +1,138 @@
+{
+  "theme": "do-son",
+  "intro": true,
+  "petals": true,
+  "groom": {
+    "name": "A",
+    "desc": "Vui tính, chu đáo, mê đạp xe",
+    "photo": "photos/chu-re.svg"
+  },
+  "bride": {
+    "name": "B",
+    "desc": "Dịu dàng, yêu nấu ăn, thích đọc sách",
+    "photo": "photos/co-dau.svg"
+  },
+  "mainDate": "2026-10-25T09:00",
+  "cover": "photos/cover.svg",
+  "coverStyle": "arch",
+  "message": "Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng tôi trong ngày vui của hai con.",
+  "families": {
+    "groom": {
+      "father": "Ông Trần Văn Hùng",
+      "mother": "Bà Lê Thị Mai",
+      "address": "Phường Hàm Rồng, Thanh Hóa"
+    },
+    "bride": {
+      "father": "Ông Nguyễn Đức Thắng",
+      "mother": "Bà Phạm Thị Lan",
+      "address": "Phường Hạc Thành, Thanh Hóa"
+    }
+  },
+  "events": [
+    {
+      "title": "Tiệc cưới nhà gái",
+      "datetime": "2026-10-24T11:00",
+      "place": "Nhà hàng Hoa Sen – Sảnh Ngọc",
+      "address": "25 Lê Lợi, Thanh Hóa"
+    },
+    {
+      "title": "Lễ thành hôn",
+      "datetime": "2026-10-25T09:00",
+      "place": "Tư gia nhà trai",
+      "address": "18 Nguyễn Trãi, Thanh Hóa"
+    },
+    {
+      "title": "Tiệc cưới nhà trai",
+      "datetime": "2026-10-25T11:00",
+      "place": "Trung tâm Hội nghị Đông Phương – Sảnh 1",
+      "address": "102 Trần Phú, Thanh Hóa",
+      "photo": "photos/nha-hang.svg"
+    }
+  ],
+  "story": [
+    {
+      "date": "Tháng 3 · 2024",
+      "title": "Lần đầu gặp gỡ",
+      "text": "Hai đứa ngồi cạnh nhau trong một buổi workshop nhiếp ảnh, và anh mượn em chiếc thẻ nhớ.",
+      "photo": "photos/ky-niem-1.svg",
+      "caption": "Buổi workshop định mệnh"
+    },
+    {
+      "date": "Tháng 8 · 2024",
+      "title": "Lời tỏ tình",
+      "text": "Sau chuyến đạp xe quanh hồ, anh nói ra điều đã giữ trong lòng suốt mấy tháng."
+    },
+    {
+      "date": "Tháng 9 · 2026",
+      "title": "Lời cầu hôn",
+      "text": "Bên bờ biển Sầm Sơn lúc hoàng hôn, em đã nói \"Có\".",
+      "photo": "photos/ky-niem-3.svg",
+      "caption": "Hoàng hôn Sầm Sơn"
+    },
+    {
+      "date": "Tháng 10 · 2026",
+      "title": "Về chung một nhà",
+      "text": "Và hôm nay, chúng mình mong được đón bạn trong ngày trọng đại này."
+    }
+  ],
+  "interludes": [
+    {
+      "photo": "photos/xen-1.svg",
+      "text": "Gặp được nhau đã là duyên, đi cùng nhau đến cuối là phận.",
+      "cite": "A & B",
+      "after": "ngay-cuoi"
+    },
+    {
+      "photo": "photos/xen-2.svg",
+      "text": "Từ hôm nay, mọi con đường đều có hai người.",
+      "after": "chuyen-tinh"
+    }
+  ],
+  "albumLayout": "mosaic",
+  "photos": [
+    {
+      "src": "photos/1.svg",
+      "caption": "Ngày chụp ảnh cưới"
+    },
+    "photos/2.svg",
+    "photos/3.svg",
+    {
+      "src": "photos/8.svg",
+      "caption": "Phố cổ Hội An"
+    },
+    "photos/4.svg",
+    "photos/7.svg",
+    {
+      "src": "photos/9.svg",
+      "caption": "Hồ Tây buổi sớm"
+    },
+    "photos/5.svg",
+    "photos/6.svg"
+  ],
+  "rsvp": {
+    "deadline": "15/10/2026",
+    "endpoint": "demo",
+    "showWishes": true,
+    "link": "",
+    "contacts": [
+      {
+        "label": "Chú rể",
+        "phone": "0901 234 567"
+      },
+      {
+        "label": "Cô dâu",
+        "phone": "0912 345 678"
+      }
+    ]
+  },
+  "gift": {
+    "title": "Quét mã để gửi quà mừng",
+    "bank": "Vietcombank",
+    "account": "0123 456 789",
+    "holder": "NGUYEN VAN A",
+    "qr": "photos/qr-mau.svg"
+  },
+  "music": "nhac/beautiful-in-white.mp3",
+  "thanks": "Cảm ơn quý khách đã dành thời gian cho ngày vui của chúng tôi",
+  "footerPhoto": "photos/cuoi-thiep.svg"
+}
