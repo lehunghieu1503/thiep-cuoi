@@ -14,6 +14,7 @@ thiep-cuoi/
 ├── build.js             script tạo thiệp
 ├── lib/amlich.js        đổi ngày dương sang âm lịch
 ├── apps-script/rsvp.gs  code dán vào Google Sheet để nhận xác nhận tham dự
+├── music/               nhạc miễn phí được phép đưa lên repo (xem music/CREDITS.md)
 ├── couples/
 │   └── mau/             cặp đôi mẫu
 │       ├── data.json
@@ -66,6 +67,7 @@ Nếu `data.json` điền sai (thiếu tên, sai định dạng ngày, tên ản
 | `rsvp.contacts[]` | | `label`, `phone` |
 | `gift` | | Một mã mừng cưới chung: `title` (mặc định "Quét mã để gửi quà mừng"), `bank`, `account`, `holder`, `qr` (ảnh mã QR ngân hàng) |
 | `music` | | Tệp nhạc nền `.mp3`. Để trống `""` thì phát giai điệu hộp nhạc Canon in D dựng sẵn; `false` để tắt nhạc. Bản dựng sẵn có tiếng đàn hạc lướt lúc mở thiệp, dàn dây vào dần, tiếng vang như hội trường |
+| `musicCredit` | | Dòng ghi công nhạc ở cuối thiệp: chuỗi hoặc `{ "text": "...", "url": "link giấy phép" }`. Bắt buộc khi dùng nhạc giấy phép CC BY |
 | `intro` | | `true` (mặc định): hiện phong bì, khách chạm con dấu để mở thiệp và bật nhạc. `false`: vào thẳng thiệp |
 | `curtain` | | `true` (mặc định): sau phong bì là màn rèm nhung kéo ra, pháo giấy và pháo hoa. `false` để bỏ rèm |
 | `petals` | | `true` (mặc định): cánh hoa rơi nhẹ. `false` để tắt |
@@ -123,7 +125,7 @@ Mỗi lần push lên nhánh `main`, GitHub Actions (`.github/workflows/pages.ym
 Repo để công khai, nên `.gitignore` giữ những thứ sau ở lại trên máy:
 
 - `dist/`: thiệp đã build, luôn tạo lại được.
-- `couples/*/nhac/`: nhạc có bản quyền. Trên GitHub Pages, thiệp mẫu tự dùng giai điệu Canon dựng sẵn.
+- `couples/*/nhac/`: nhạc riêng của từng cặp (thường có bản quyền). Nhạc miễn phí dùng chung nằm ở `music/` và được đưa lên repo.
 - Mọi thư mục cặp đôi, trừ `couples/mau/`: dữ liệu thật (tên, địa chỉ, số tài khoản, ảnh) không lên repo.
 
 Xác nhận tham dự của khách không nằm trong repo mà lưu trong Google Sheet của từng cặp (xem mục trên).
@@ -132,6 +134,7 @@ Xác nhận tham dự của khách không nằm trong repo mà lưu trong Google
 
 ## Lưu ý
 
+- **Nhạc miễn phí có sẵn:** thư mục `music/` có Canon in D (Kevin MacLeod, CC BY 3.0) và Air on the G String (Ban nhạc Không quân Hoa Kỳ, phạm vi công cộng). Cách dùng và dòng ghi công: `music/CREDITS.md`. Thiệp mẫu dùng Canon in D.
 - **Nhạc riêng:** bỏ tệp `.mp3` vào thư mục của cặp đôi (ví dụ `couples/mau/nhac/beautiful-in-white.mp3`) và điền đường dẫn vào `music`. Chưa có tệp thì build chỉ cảnh báo và tạm dùng giai điệu dựng sẵn. Bài hát có bản quyền nên dùng tệp bạn đã mua hoặc được phép sử dụng.
 - **Dung lượng:** ảnh và nhạc được nhúng thẳng vào HTML. Nên nén ảnh về khoảng 1600px, dưới 300 KB mỗi ảnh (ví dụ bằng squoosh.app). Build sẽ cảnh báo khi tệp vượt 15 MB.
 - **Xác nhận tham dự:** thiệp là trang tĩnh nên không tự lưu phản hồi. Cách đơn giản nhất là tạo một Google Form và dán link vào `rsvp.link`.

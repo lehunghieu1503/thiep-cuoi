@@ -332,6 +332,8 @@ footer.end .foot-bg { position: absolute; inset: 0; }
 footer.end .foot-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
 footer.end .foot-bg::after { content: ""; position: absolute; inset: 0; background: color-mix(in srgb, var(--accent-deep) 72%, transparent); }
 footer.end > :not(.foot-bg) { position: relative; }
+footer.end p.credit { margin-top: 28px; font-family: var(--f-body); font-style: normal; font-size: 11px; letter-spacing: .04em; color: color-mix(in srgb, var(--on-accent) 70%, transparent); }
+footer.end p.credit a { color: inherit; }
 
 /* Xác nhận tham dự */
 .contacts { display: grid; gap: 10px; margin: 24px auto 0; max-width: 360px; }
@@ -775,6 +777,7 @@ footer.end .names {
     <div class="names" id="foot-names"></div>
     <p id="thanks"></p>
     <button class="btn fire" id="fire" type="button" hidden>Bắn pháo hoa chúc mừng</button>
+    <p class="credit" id="music-credit" hidden></p>
   </footer>
 </div>
 
@@ -1040,6 +1043,13 @@ window.WEDDING = /*@data*/null;
       ${it.text ? `<blockquote>${esc(it.text)}${it.cite ? `<cite>${esc(it.cite)}</cite>` : ""}</blockquote>` : ""}`;
     anchor.insertAdjacentElement("afterend", el);
   });
+
+  // ---- Ghi công nhạc nền (bắt buộc với nhạc giấy phép CC BY): chuỗi hoặc { text, url }
+  if (W.musicCredit && W.music !== false) {
+    const c = typeof W.musicCredit === "string" ? { text: W.musicCredit } : W.musicCredit;
+    $("music-credit").innerHTML = c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text);
+    $("music-credit").hidden = false;
+  }
 
   // ---- Ảnh nền lời cảm ơn
   if (W.footerPhoto) {

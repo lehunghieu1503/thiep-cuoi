@@ -132,7 +132,11 @@
     "holder": "NGUYEN VAN A",
     "qr": "photos/qr-mau.svg"
   },
-  "music": "nhac/beautiful-in-white.mp3",
+  "music": "../../music/canon-in-d-kevin-macleod.mp3",
+  "musicCredit": {
+    "text": "Nhạc nền: \"Canon in D Major\" – Kevin MacLeod (incompetech.com) · CC BY 3.0",
+    "url": "https://creativecommons.org/licenses/by/3.0/"
+  },
   "thanks": "Cảm ơn quý khách đã dành thời gian cho ngày vui của chúng tôi",
   "footerPhoto": "photos/cuoi-thiep.svg"
 }
