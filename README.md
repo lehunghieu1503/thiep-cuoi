@@ -97,6 +97,8 @@ Mọi ảnh đều bấm vào để xem lớn. Trong album có thể vuốt, b�
 
 **Bản wow:** số ngày cưới khổng lồ viền mảnh sau trang bìa, hai dải ruy băng chạy chữ bắt chéo, phần "Lưu lại ngày này" thành dải đỏ với lịch và đếm ngược nhũ vàng, chữ viết tay lớn mờ sau mỗi tiêu đề, đường thời gian vàng tự vẽ khi cuộn, thẻ nghiêng 3D và vệt sao theo con trỏ chuột trên máy tính.
 
+**Hiệu ứng tinh tế:** tiêu đề hiện từng chữ cái từ mờ nhòe sang sắc nét; câu trích trên ảnh tràn viền sáng dần từng từ theo nhịp cuộn; thanh tiến trình nhũ vàng có trái tim chạy trên cùng màn hình; con trỏ vòng vàng trên máy tính (hiện chữ "Xem" khi rê vào ảnh); dải đỏ có mép cong; con dấu sáp nứt đôi khi mở phong bì (điện thoại Android rung nhẹ); sao băng sau lời cảm ơn; pháo giấy khi gửi xác nhận thành công.
+
 **Hiệu ứng:** phong bì mở thiệp → rèm nhung kéo ra → pháo giấy bắn từ hai góc → pháo hoa. Trang bìa có tên ánh nhũ vàng hiện dần như viết tay, tia sáng xoay, vòng chữ "Trăm năm hạnh phúc" quay quanh ảnh bìa, hạt kim tuyến bay lên. Cánh hoa rơi, các phần hiện lên khi cuộn, số đếm ngược lật, chạm vào tên thì tim bay lên, cuối thiệp có nút bắn pháo hoa (và tự bắn khi khách cuộn tới). Máy khách bật chế độ "giảm chuyển động" thì các hiệu ứng tự tắt.
 
 **Nhạc nền:** trình duyệt không cho web tự phát tiếng khi khách chưa chạm vào trang, nên nhạc bắt đầu đúng lúc khách chạm mở phong bì. Nhạc tự dừng khi khách chuyển tab và phát tiếp khi quay lại.
