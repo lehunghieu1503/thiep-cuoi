@@ -72,6 +72,8 @@ Nếu `data.json` điền sai (thiếu tên, sai định dạng ngày, tên ản
 | `curtain` | | `true` (mặc định): sau phong bì là màn rèm nhung kéo ra, pháo giấy và pháo hoa. `false` để bỏ rèm |
 | `petals` | | `true` (mặc định): cánh hoa rơi nhẹ. `false` để tắt |
 | `thanks` | | Lời cảm ơn cuối thiệp |
+| `ribbon` | | Câu chạy trên hai dải ruy băng (mặc định "Trăm năm hạnh phúc"), đi kèm tên và ngày cưới |
+| `watermarks` | | `false` để tắt chữ viết tay lớn mờ phía sau tiêu đề mỗi phần |
 | `footerPhoto` | | Ảnh nền phía sau lời cảm ơn |
 
 ## Chỗ đặt ảnh
@@ -89,6 +91,8 @@ Ngoài album, ảnh có thể đặt ở 7 chỗ, chỗ nào để trống thì 
 Mọi ảnh đều bấm vào để xem lớn. Trong album có thể vuốt hoặc bấm mũi tên để chuyển ảnh.
 
 **Tự động:** thứ trong tuần và ngày âm lịch (có can chi, tháng nhuận) được tính từ ngày dương, không cần điền tay.
+
+**Bản wow:** số ngày cưới khổng lồ viền mảnh sau trang bìa, hai dải ruy băng chạy chữ bắt chéo, phần "Lưu lại ngày này" thành dải đỏ với lịch và đếm ngược nhũ vàng, chữ viết tay lớn mờ sau mỗi tiêu đề, đường thời gian vàng tự vẽ khi cuộn, thẻ nghiêng 3D và vệt sao theo con trỏ chuột trên máy tính.
 
 **Hiệu ứng:** phong bì mở thiệp → rèm nhung kéo ra → pháo giấy bắn từ hai góc → pháo hoa. Trang bìa có tên ánh nhũ vàng hiện dần như viết tay, tia sáng xoay, vòng chữ "Trăm năm hạnh phúc" quay quanh ảnh bìa, hạt kim tuyến bay lên. Cánh hoa rơi, các phần hiện lên khi cuộn, số đếm ngược lật, chạm vào tên thì tim bay lên, cuối thiệp có nút bắn pháo hoa (và tự bắn khi khách cuộn tới). Máy khách bật chế độ "giảm chuyển động" thì các hiệu ứng tự tắt.
 

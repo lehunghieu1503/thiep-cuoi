@@ -509,7 +509,9 @@ section { padding-inline: max(28px, calc((100% - 1040px) / 2)); }
   .album.carousel figure { flex-basis: 42%; }
 }
 @media (min-width: 900px) {
-  .hero .names { font-size: 96px; }
+  .hero .names { font-size: clamp(96px, 9vw, 136px); }
+  .countdown { max-width: 620px; gap: 16px; }
+  .countdown b { font-size: 60px; }
   .cover { width: 240px; }
   .cover.circle { width: 270px; }
   .ring-text { width: 400px; height: 400px; }
@@ -578,6 +580,84 @@ footer.end .names {
 .btn.fire { color: var(--gold-soft); border-color: var(--gold-soft); margin-top: 22px; }
 .btn.fire:hover { background: var(--gold-soft); color: var(--accent-deep); }
 
+/* ---- Bản wow ---- */
+/* Số ngày cưới khổng lồ viền mảnh phía sau trang bìa */
+.hero .hero-num {
+  position: absolute; top: 50%; z-index: 0; pointer-events: none; user-select: none;
+  font-family: var(--f-display); font-weight: 600; line-height: .8; letter-spacing: -.02em;
+  font-size: clamp(170px, 38vw, 520px);
+  color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--gold-soft) 40%, transparent);
+  transform: translateY(calc(-50% + var(--py, 0px)));
+}
+.hero .hero-num.l { left: -3vw; }
+.hero .hero-num.r { right: -3vw; }
+@media (max-width: 700px) {
+  .hero .hero-num.l { top: 20%; }
+  .hero .hero-num.r { top: 80%; }
+}
+
+/* Hai dải ruy băng chạy chữ bắt chéo */
+.ribbons { position: relative; height: 150px; overflow: hidden; pointer-events: none; }
+.ribbon { position: absolute; left: -6%; right: -6%; top: 50%; padding: 13px 0; overflow: hidden; white-space: nowrap; }
+.ribbon.one { z-index: 1; background: linear-gradient(90deg, var(--gold), var(--gold-soft) 50%, var(--gold)); color: var(--accent-deep); transform: translateY(-50%) rotate(-3deg); box-shadow: 0 14px 30px -16px color-mix(in srgb, var(--accent-deep) 70%, transparent); }
+.ribbon.two { background: var(--accent-deep); color: var(--gold-soft); transform: translateY(-50%) rotate(2.5deg); }
+.ribbon .track { display: inline-block; font-family: var(--f-display); font-size: 21px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; animation: marquee 48s linear infinite; }
+.ribbon.two .track { animation-direction: reverse; animation-duration: 60s; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Chữ viết tay rất lớn, mờ, phía sau tiêu đề mỗi phần */
+section[data-wm] { position: relative; overflow: hidden; }
+section[data-wm] > * { position: relative; z-index: 1; }
+section[data-wm]::before {
+  content: attr(data-wm); position: absolute; left: 50%; top: 10px; z-index: 0; pointer-events: none;
+  transform: translateX(-50%); white-space: nowrap;
+  font-family: var(--f-script); font-size: clamp(96px, 20vw, 230px); line-height: 1;
+  color: var(--gold); opacity: .12;
+}
+
+/* Dải đỏ "Lưu lại ngày này": lịch và đếm ngược nhũ vàng */
+section.band {
+  background: radial-gradient(120% 90% at 50% 0%, var(--accent-glow) 0%, var(--accent) 45%, var(--accent-deep) 100%);
+  color: var(--on-accent); padding-block: 80px;
+}
+section.band::before { color: var(--gold-soft); opacity: .14; }
+section.band h2 { color: var(--on-accent); }
+section.band .eyebrow, section.band .cal-title, section.band .cal .h { color: var(--gold-soft); }
+section.band .cal .c { color: color-mix(in srgb, var(--on-accent) 88%, transparent); }
+section.band .cal .c.mark { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); color: var(--accent-deep); box-shadow: 0 0 24px color-mix(in srgb, var(--gold-soft) 60%, transparent); }
+section.band .cal .c.mark::after { color: var(--gold-soft); }
+section.band .cal .c.near { color: var(--gold-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold-soft) 55%, transparent); }
+section.band .countdown div {
+  background: color-mix(in srgb, var(--on-accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold-soft) 35%, transparent); border-top: 2px solid var(--gold-soft);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+section.band .countdown b {
+  background: linear-gradient(180deg, var(--on-accent) 0%, var(--gold-soft) 55%, var(--gold) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+section.band .countdown span, section.band .married { color: var(--gold-soft); }
+
+/* Đường thời gian vàng tự vẽ theo nhịp cuộn */
+.story::after {
+  content: ""; position: absolute; left: 6px; top: 8px; width: 3px; border-radius: 2px;
+  height: calc((100% - 16px) * var(--p, 0));
+  background: linear-gradient(180deg, var(--gold), var(--accent));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--gold) 60%, transparent);
+}
+.story li { z-index: 1; }
+.story li::before { z-index: 1; transition: background .4s, box-shadow .4s; }
+.story li.lit::before { background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent), 0 0 14px color-mix(in srgb, var(--gold) 70%, transparent); }
+
+/* Vệt sáng lướt qua nút */
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+  content: ""; position: absolute; top: 0; left: -70%; width: 45%; height: 100%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .45), transparent);
+  transform: skewX(-20deg); transition: left .7s ease;
+}
+.btn:hover::after { left: 130%; }
+
 /* Rèm nhung kéo ra sau khi mở phong bì */
 .curtain { position: fixed; inset: 0; z-index: 28; pointer-events: none; display: flex; overflow: hidden; }
 .curtain .half {
@@ -629,6 +709,8 @@ footer.end .names {
   <header class="hero">
     <div class="hero-bg" id="hero-bg" hidden><img id="hero-bg-img" alt=""></div>
     <div class="rays" aria-hidden="true"></div>
+    <div class="hero-num l" id="num-d" aria-hidden="true"></div>
+    <div class="hero-num r" id="num-m" aria-hidden="true"></div>
     <svg class="corner tl" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 61V18Q3 3 18 3h43"></path><path d="M10 61V22q0-12 12-12h39"></path><circle cx="18" cy="18" r="3.5" fill="currentColor"></circle><path d="M18 18c10 1 13 5 14 14M18 18c1 10 5 13 14 14"></path></svg>
     <svg class="corner tr" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 61V18Q3 3 18 3h43"></path><path d="M10 61V22q0-12 12-12h39"></path><circle cx="18" cy="18" r="3.5" fill="currentColor"></circle><path d="M18 18c10 1 13 5 14 14M18 18c1 10 5 13 14 14"></path></svg>
     <svg class="corner bl" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 61V18Q3 3 18 3h43"></path><path d="M10 61V22q0-12 12-12h39"></path><circle cx="18" cy="18" r="3.5" fill="currentColor"></circle><path d="M18 18c10 1 13 5 14 14M18 18c1 10 5 13 14 14"></path></svg>
@@ -656,6 +738,11 @@ footer.end .names {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
     </div>
   </header>
+
+  <div class="ribbons" aria-hidden="true">
+    <div class="ribbon one"><div class="track"></div></div>
+    <div class="ribbon two"><div class="track"></div></div>
+  </div>
 
   <section id="loi-moi">
     <p class="eyebrow">Lời mời</p>
@@ -1361,7 +1448,7 @@ window.WEDDING = /*@data*/null;
 
   // Một lớp canvas cho mọi hạt: cánh hoa, kim tuyến, pháo giấy, pháo hoa, trái tim
   const FX = (function () {
-    const none = { burst() {}, firework() {}, hearts() {}, start() {} };
+    const none = { burst() {}, firework() {}, hearts() {}, trail() {}, start() {} };
     if (reduced) return none;
     const cv = $("petals"), cx = cv.getContext("2d");
     if (!cx) return none;
@@ -1413,6 +1500,21 @@ window.WEDDING = /*@data*/null;
         parts.push({ t: "heart", x, y, vx: rnd(-1.8, 1.8), vy: -rnd(1.5, 4), g: 0.05, drag: 0.99, s: rnd(6, 12),
           c: pick([C.accent, C.petal, C.goldSoft]), life: 1, decay: rnd(0.01, 0.016), a: rnd(-0.4, 0.4) });
       }
+    }
+
+    // Sao bốn cánh rơi nhẹ theo con trỏ chuột
+    function trail(x, y) {
+      parts.push({ t: "star", x: x + rnd(-6, 6), y: y + rnd(-6, 6), vx: rnd(-0.4, 0.4), vy: rnd(-0.2, 0.6), g: 0.02, drag: 0.97,
+        s: rnd(2.5, 5), a: rnd(0, 1.5), c: Math.random() < 0.6 ? C.gold : C.goldSoft, life: 1, decay: rnd(0.025, 0.04) });
+    }
+    function drawStar(s) {
+      cx.beginPath();
+      for (let k = 0; k < 8; k++) {
+        const r = k % 2 ? s * 0.28 : s, a = (k * Math.PI) / 4;
+        cx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+      }
+      cx.closePath();
+      cx.fill();
     }
 
     function drawPetal(p) {
@@ -1468,6 +1570,10 @@ window.WEDDING = /*@data*/null;
             cx.strokeStyle = p.c; cx.lineWidth = p.s * 0.8;
             cx.beginPath(); cx.moveTo(p.px - p.vx * 3, p.py - p.vy * 3); cx.lineTo(p.x, p.y); cx.stroke();
             cx.beginPath(); cx.arc(p.x, p.y, p.s, 0, 6.28); cx.fill();
+          } else if (p.t === "star") {
+            cx.globalCompositeOperation = "lighter";
+            cx.translate(p.x, p.y); cx.rotate(p.a);
+            drawStar(p.s * (0.6 + 0.4 * p.life));
           } else {
             cx.translate(p.x, p.y); cx.rotate(p.a);
             drawHeart(p.s);
@@ -1479,7 +1585,7 @@ window.WEDDING = /*@data*/null;
     }
 
     return {
-      burst, firework, hearts,
+      burst, firework, hearts, trail,
       start() {
         if (started) return;
         started = true;
@@ -1529,6 +1635,73 @@ window.WEDDING = /*@data*/null;
   if (!reduced) {
     $("fire").hidden = false;
     $("fire").addEventListener("click", () => fireworksShow(5));
+  }
+
+  // ---- Bản wow: số khổng lồ, ruy băng, chữ nền, dải đỏ, đường thời gian, nghiêng 3D, vệt sao
+  $("num-d").textContent = pad(main.d);
+  $("num-m").textContent = pad(main.mo);
+  const ribbonText = `${W.groom.name} & ${W.bride.name}  ✦  ${pad(main.d)}.${pad(main.mo)}.${main.y}  ✦  ${W.ribbon || "Trăm năm hạnh phúc"}  ✦  `;
+  const ribbons = document.querySelector(".ribbons");
+  // Ruy băng thứ hai ngay trước lời cảm ơn
+  $("footer").insertAdjacentElement("beforebegin", ribbons.cloneNode(true));
+  document.querySelectorAll(".ribbon .track").forEach((t) => { t.textContent = ribbonText.repeat(12); });
+
+  const WATERMARKS = {
+    "#loi-moi": "Love", "#ngay-cuoi": "Save the date", '[data-block="events"] section': "Celebrate",
+    '[data-block="story"] section': "Our story", '[data-block="photos"] section': "Memories",
+    '[data-block="rsvp"] section': "Join us", '[data-block="gifts"] section': "Blessings",
+  };
+  if (W.watermarks !== false) {
+    Object.entries(WATERMARKS).forEach(([sel, word]) => document.querySelector(sel)?.setAttribute("data-wm", word));
+  }
+  $("ngay-cuoi").classList.add("band");
+
+  const storyEl = $("story");
+  const heroEl = document.querySelector(".hero");
+  function onScrollWow() {
+    const y = Math.min(scrollY, 1200);
+    $("num-d").style.setProperty("--py", `${y * 0.3}px`);
+    $("num-m").style.setProperty("--py", `${y * -0.18}px`);
+    const r = storyEl.getBoundingClientRect(), mark = innerHeight * 0.62;
+    storyEl.style.setProperty("--p", String(Math.max(0, Math.min(1, (mark - r.top) / Math.max(1, r.height)))));
+    storyEl.querySelectorAll("li").forEach((li) => li.classList.toggle("lit", li.getBoundingClientRect().top < mark));
+  }
+  if (reduced) {
+    storyEl.style.setProperty("--p", "1");
+    storyEl.querySelectorAll("li").forEach((li) => li.classList.add("lit"));
+  } else {
+    let wowQueued = false;
+    addEventListener("scroll", () => {
+      if (wowQueued) return;
+      wowQueued = true;
+      requestAnimationFrame(() => { wowQueued = false; onScrollWow(); });
+    }, { passive: true });
+    onScrollWow();
+  }
+
+  // Nghiêng 3D theo chuột và vệt sao, chỉ trên máy có chuột
+  if (!reduced && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const TILT = ".event, .snap, .portrait, .gift";
+    document.addEventListener("pointermove", (e) => {
+      const el = e.target.closest?.(TILT);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transition = "transform .12s ease-out";
+      el.style.transform = `perspective(900px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 9).toFixed(2)}deg) translateY(-4px)`;
+    });
+    document.addEventListener("pointerout", (e) => {
+      const el = e.target.closest?.(TILT);
+      if (!el || el.contains(e.relatedTarget)) return;
+      el.style.transition = "transform .5s cubic-bezier(.2, .8, .2, 1)";
+      el.style.transform = "";
+    });
+    let lastTrail = 0;
+    document.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse" || e.timeStamp - lastTrail < 28) return;
+      lastTrail = e.timeStamp;
+      FX.trail(e.clientX, e.clientY);
+    }, { passive: true });
   }
 
   const showCard = () => {
