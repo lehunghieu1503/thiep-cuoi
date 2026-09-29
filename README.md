@@ -4,7 +4,7 @@ Một giao diện dùng chung cho nhiều cặp đôi. Mỗi cặp chỉ cần m
 
 Chỉ cần cài [Node.js](https://nodejs.org) (bản 16 trở lên), không cần cài thêm thư viện.
 
-**Xem thiệp mẫu:** https://lehunghieu1503.github.io/thiep-cuoi/
+**Xem thiệp mẫu:** https://thiep-cuoi-grb.pages.dev/mau/ (bản trên GitHub Pages: https://lehunghieu1503.github.io/thiep-cuoi/)
 
 ## Cấu trúc
 
@@ -117,6 +117,20 @@ Phản hồi đầu tiên sẽ tự tạo trang tính "Phản hồi" với các 
 - **Riêng tư:** sổ lưu bút chỉ hiện công khai tên và lời chúc. Thông tin có đến hay không, số người và link mời chỉ nằm trong Sheet.
 - **Chống spam:** form có một ô ẩn mà người thật không thấy; phản hồi nào điền vào ô đó sẽ bị bỏ qua.
 - **Khách gửi lại:** trên cùng một máy, thiệp nhớ là khách đã gửi và hiện lời cảm ơn, kèm nút "Sửa phản hồi". Mỗi lần gửi lại là một dòng mới, dòng mới nhất là phản hồi cuối cùng.
+
+## Đăng lên Cloudflare Pages (link gửi khách)
+
+Link có dạng `https://thiep-cuoi-grb.pages.dev/<ten-cap-doi>/`. Thiệp được build trên máy rồi tải thẳng lên Cloudflare, nên dữ liệu cặp đôi thật không cần đưa lên GitHub.
+
+```bash
+npx wrangler login                      # chỉ lần đầu: đăng nhập Cloudflare
+scripts/deploy-cloudflare.sh            # build tất cả rồi đăng
+scripts/deploy-cloudflare.sh toan-linh  # chỉ build lại một cặp rồi đăng
+```
+
+Mỗi lần đăng sẽ tải lên toàn bộ thư mục `dist/`. Thiệp của cặp nào đã build trước đó vẫn còn trên link, trừ khi bạn xoá thư mục của cặp đó trong `dist/`.
+
+Cả trang chủ lẫn thiệp đều gửi kèm `noindex`, để Google và các công cụ tìm kiếm không đưa thiệp (có tên, địa chỉ, số tài khoản) lên kết quả tìm kiếm. Chỉ người có link mới mở được.
 
 ## GitHub và GitHub Pages
 

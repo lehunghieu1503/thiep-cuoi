@@ -9,3 +9,6 @@ couples/*/nhac/
 # Repo riêng tư: xoá 2 dòng dưới nếu muốn sao lưu cả dữ liệu thật.
 couples/*
 !couples/mau/
+
+# Cache của wrangler (chứa Account ID và email Cloudflare)
+.wrangler/

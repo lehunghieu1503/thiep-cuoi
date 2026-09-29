@@ -28,15 +28,6 @@ jobs:
           node-version: 22
       - name: Build thiệp
         run: node build.js
-      - name: Trang chủ chuyển tới thiệp mẫu
-        run: |
-          cat > dist/index.html <<'EOF'
-          <!doctype html>
-          <meta charset="utf-8">
-          <meta http-equiv="refresh" content="0; url=mau/">
-          <title>Thiệp cưới</title>
-          <a href="mau/">Xem thiệp mẫu</a>
-          EOF
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

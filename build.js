@@ -142,6 +142,21 @@ function scaffold(slug) {
   console.log(`  Sửa data.json, bỏ ảnh vào photos/, rồi chạy: node build.js ${slug}`);
 }
 
+// Tệp dùng chung cho mọi nơi đăng thiệp (GitHub Pages, Cloudflare Pages…)
+function writeSiteFiles() {
+  if (!fs.existsSync(DIST)) return;
+  // Trang chủ: chuyển tới thiệp mẫu, không liệt kê các cặp đôi khác
+  fs.writeFileSync(path.join(DIST, "index.html"), `<!doctype html>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=${SAMPLE}/">
+<title>Thiệp cưới</title>
+<a href="${SAMPLE}/">Xem thiệp mẫu</a>
+`);
+  // Cloudflare Pages: không cho công cụ tìm kiếm lập chỉ mục thiệp
+  fs.writeFileSync(path.join(DIST, "_headers"), "/*\n  X-Robots-Tag: noindex, nofollow\n");
+}
+
 function main() {
   const args = process.argv.slice(2);
   try {
@@ -160,6 +175,7 @@ function main() {
         console.error(`✗ ${slug}:\n${e.message.startsWith("  -") ? e.message : "  " + e.message}`);
       }
     }
+    writeSiteFiles();
     process.exitCode = failed ? 1 : 0;
   } catch (e) {
     if (!(e instanceof BuildError)) throw e;
